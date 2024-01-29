@@ -11,11 +11,14 @@ namespace JeffFerguson.Syntactic
     /// </remarks>
     public class LexicalAnalyzer
     {
-        public void RegisterRegularExpression(string regularExpression, Action<Lexeme> lexemeHandler)
+        public RegisteredRegularExpression RegisterRegularExpression(string regularExpression, Action<Lexeme> lexemeHandler)
         {
+            var registeredRegularExpression = new RegisteredRegularExpression();
             var tokenizer = new RegularExpressionTokenizer();
             tokenizer.Tokenize(regularExpression);
-            var nfa = new Nfa.Nfa(tokenizer.Tokens);
+            registeredRegularExpression.Tokens = tokenizer.Tokens;
+            //registeredRegularExpression.Nfa = new Nfa.Nfa(registeredRegularExpression.Tokens);
+            return registeredRegularExpression;
         }
     }
 }

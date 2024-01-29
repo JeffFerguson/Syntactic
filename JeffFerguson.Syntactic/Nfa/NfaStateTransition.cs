@@ -2,19 +2,19 @@
 
 namespace JeffFerguson.Syntactic.Nfa
 {
-    internal class NfaStateTransition
+    public class NfaStateTransition
     {
-        internal enum TransitionOptions
+        public enum TransitionOptions
         {
             Epsilon = 0,
             SingleCharacter,
             AllCharacters
         }
 
-        private char SingleCharacter;
+        public char SingleCharacter { get; private set; }
 
-        internal NfaState ToState { get; private set; }
-        internal TransitionOptions Option { get; private set; }
+        public NfaState ToState { get; private set; }
+        public TransitionOptions Option { get; private set; }
 
         internal NfaStateTransition()
         {

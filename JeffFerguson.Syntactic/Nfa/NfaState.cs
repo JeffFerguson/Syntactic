@@ -2,15 +2,25 @@
 
 namespace JeffFerguson.Syntactic.Nfa
 {
-    internal class NfaState
+    public class NfaState
     {
-        private NfaStateTransition transition1;
-        private NfaStateTransition transition2;
+        public enum AnchorOptions
+        {
+            NotAnchored = 0,
+            AnchoredToStartOfLine,
+            AnchoredToEndOfLine
+        }
+
+        public NfaStateTransition transition1 { get; private set; }
+        public  NfaStateTransition transition2 { get; private set; }
+
+        public AnchorOptions Anchor { get; set; }
 
         internal NfaState()
         {
             transition1 = null;
             transition2 = null;
+            Anchor = AnchorOptions.NotAnchored;
         }
 
         internal void AddTransition(NfaState transitionToState, char singleCharacter)

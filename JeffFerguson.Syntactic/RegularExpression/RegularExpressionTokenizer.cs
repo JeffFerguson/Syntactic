@@ -129,7 +129,7 @@ namespace JeffFerguson.Syntactic.RegularExpression
         /// Adds a single character to a list of regular expression tokens.
         /// </summary>
         /// <param name="tokens">
-        /// The list of regular expreswsion tokens to which the single character should be added.
+        /// The list of regular expression tokens to which the single character should be added.
         /// </param>
         /// <param name="currentCharacter">
         /// The character to add to the list.

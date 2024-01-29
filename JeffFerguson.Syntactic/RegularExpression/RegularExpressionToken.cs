@@ -1,8 +1,8 @@
 ﻿namespace JeffFerguson.Syntactic.RegularExpression
 {
-    internal struct RegularExpressionToken
+    public struct RegularExpressionToken
     {
-        internal enum CharacterClass
+        public enum CharacterClass
         {
             Unknown = 0,
             SingleCharacter,
@@ -24,7 +24,8 @@
             NextCharsAreLiteralEnd
         }
 
-        internal CharacterClass Class;
-        internal char Character;
+        public CharacterClass Class { get; internal set; }
+        public char Character { get; internal set; }
+        internal static RegularExpressionToken NullToken = new() { Class = CharacterClass.Unknown, Character = (char)0x00 };
     }
 }
