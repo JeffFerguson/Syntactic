@@ -31,7 +31,7 @@ namespace JeffFerguson.Syntactic.RegularExpression
             var lookForLiteralEnd = false;
 
             Tokens.Capacity = regularExpression.Length;
-            foreach(var currentCharacter in regularExpression)
+            foreach (var currentCharacter in regularExpression)
             {
                 if (nextCharIsLiteral == true)
                 {
@@ -41,7 +41,7 @@ namespace JeffFerguson.Syntactic.RegularExpression
                 }
                 if (lookForLiteralEnd == true)
                 {
-                    if(currentCharacter == NextCharsAreLiteralEnd)
+                    if (currentCharacter == NextCharsAreLiteralEnd)
                     {
                         lookForLiteralEnd = false;
                     }
@@ -51,7 +51,7 @@ namespace JeffFerguson.Syntactic.RegularExpression
                     }
                     continue;
                 }
-                switch(currentCharacter)
+                switch (currentCharacter)
                 {
                     case Wildcard:
                         AddToken(Tokens, RegularExpressionToken.CharacterClass.Wildcard);
@@ -110,7 +110,7 @@ namespace JeffFerguson.Syntactic.RegularExpression
         /// Adds a token to a list of regular expression tokens.
         /// </summary>
         /// <param name="tokens">
-        /// The list of regular expreswsion tokens to which the single character should be added.
+        /// The list of regular expression tokens to which the single character should be added.
         /// </param>
         /// <param name="tokenClassToAdd">
         /// The token to add to the list.
@@ -118,10 +118,10 @@ namespace JeffFerguson.Syntactic.RegularExpression
         private void AddToken(List<RegularExpressionToken> tokens, RegularExpressionToken.CharacterClass tokenClassToAdd)
         {
             tokens.Add(new RegularExpressionToken
-                {
-                    Class = tokenClassToAdd,
-                    Character = (char)0x00
-                }
+            {
+                Class = tokenClassToAdd,
+                Character = (char)0x00
+            }
             );
         }
 
@@ -137,10 +137,10 @@ namespace JeffFerguson.Syntactic.RegularExpression
         private void AddSingleCharacter(List<RegularExpressionToken> tokens, char currentCharacter)
         {
             tokens.Add(new RegularExpressionToken
-                {
-                    Class = RegularExpressionToken.CharacterClass.SingleCharacter,
-                    Character = currentCharacter
-                }
+            {
+                Class = RegularExpressionToken.CharacterClass.SingleCharacter,
+                Character = currentCharacter
+            }
             );
         }
     }

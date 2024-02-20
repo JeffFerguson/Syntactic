@@ -3,7 +3,7 @@ using JeffFerguson.Syntactic.RegularExpression;
 
 namespace JeffFerguson.Syntactic.Nfa
 {
-    internal class CharacterClass
+    public class CharacterClass
     {
         private bool negativeCharacterClass;
         private List<char> singleCharacters;
@@ -19,31 +19,32 @@ namespace JeffFerguson.Syntactic.Nfa
             Initialize();
             var reader = new TokenReader(tokens);
             var checkedForNegativeClass = false;
-            while(reader.Read() == true)
+            var readToken = RegularExpressionToken.NullToken;
+            while (reader.ReadNextToken(out readToken) == true)
             {
-                if(checkedForNegativeClass == false)
+                if (checkedForNegativeClass == false)
                 {
                     checkedForNegativeClass = true;
-                    if(reader.NextToken.Class == RegularExpressionToken.CharacterClass.NegateCharacterClass)
+                    if (readToken.Class == RegularExpressionToken.CharacterClass.NegateCharacterClass)
                     {
                         negativeCharacterClass = true;
                         continue;
-                    }                   
+                    }
                 }
                 reader.Peek(out var tokenAferCurrentToken);
-                if(tokenAferCurrentToken.Class == RegularExpressionToken.CharacterClass.CharacterRange)
+                if (tokenAferCurrentToken.Class == RegularExpressionToken.CharacterClass.CharacterRange)
                 {
                     var newRange = new CharacterRange();
-                    newRange.FirstCharacterInRange = reader.NextToken.Character;
-                    reader.Read();
-                    reader.Read();
-                    newRange.LastCharacterInRange = reader.NextToken.Character;
+                    newRange.FirstCharacterInRange = readToken.Character;
+                    reader.ReadNextToken(out readToken);
+                    reader.ReadNextToken(out readToken);
+                    newRange.LastCharacterInRange = readToken.Character;
                     characterClassRanges.Add(newRange);
                 }
                 else
                 {
-                    singleCharacters.Add(reader.NextToken.Character);
-                }     
+                    singleCharacters.Add(readToken.Character);
+                }
             }
         }
 
@@ -51,7 +52,7 @@ namespace JeffFerguson.Syntactic.Nfa
         {
             negativeCharacterClass = false;
             singleCharacters = new List<char>();
-            characterClassRanges = new List<CharacterRange>();            
+            characterClassRanges = new List<CharacterRange>();
         }
     }
 }

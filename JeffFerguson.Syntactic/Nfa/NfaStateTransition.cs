@@ -8,12 +8,13 @@ namespace JeffFerguson.Syntactic.Nfa
         {
             Epsilon = 0,
             SingleCharacter,
+            CharacterClass,
             AllCharacters
         }
 
         public char SingleCharacter { get; private set; }
-
-        public NfaState ToState { get; private set; }
+        public CharacterClass CharacterClass { get; private set; }
+        public NfaState ToState { get; internal set; }
         public TransitionOptions Option { get; private set; }
 
         internal NfaStateTransition()
@@ -22,8 +23,7 @@ namespace JeffFerguson.Syntactic.Nfa
             Option = TransitionOptions.Epsilon;
         }
 
-        internal NfaStateTransition(NfaState transitionTo)
-            : this(transitionTo, TransitionOptions.Epsilon)
+        internal NfaStateTransition(NfaState transitionTo) : this(transitionTo, TransitionOptions.Epsilon)
         {
         }
 
@@ -32,6 +32,13 @@ namespace JeffFerguson.Syntactic.Nfa
             SingleCharacter = singleCharacter;
             ToState = transitionTo;
             Option = TransitionOptions.SingleCharacter;
+        }
+
+        internal NfaStateTransition(NfaState transitionTo, CharacterClass characterClass)
+        {
+            CharacterClass = characterClass;
+            ToState = transitionTo;
+            Option = TransitionOptions.CharacterClass;
         }
 
         internal NfaStateTransition(NfaState transitionTo, TransitionOptions option)

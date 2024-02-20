@@ -17,7 +17,7 @@ namespace JeffFerguson.Syntactic
             var tokenizer = new RegularExpressionTokenizer();
             tokenizer.Tokenize(regularExpression);
             registeredRegularExpression.Tokens = tokenizer.Tokens;
-            //registeredRegularExpression.Nfa = new Nfa.Nfa(registeredRegularExpression.Tokens);
+            registeredRegularExpression.Nfa = new Nfa.Nfa(registeredRegularExpression.Tokens);
             return registeredRegularExpression;
         }
     }
